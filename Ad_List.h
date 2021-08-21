@@ -8,37 +8,36 @@ class AdjacencyList : public InterfaceGraph
 {
 private:
     VertexList *head;
-    // VertexList *tail;
     VertexList *adlist;
     bool isDirectedGraph;
 public:
-    AdjacencyList(char vertex,  bool isDirected);
-    virtual void addVertex(char v);
-    virtual void addEdge(char v1, char v2);
-    virtual void addEdge_(char v1, char v2);
-    virtual void addEdgeUndirected(char v1, char v2);
-    virtual void addEdgeDirected(char v1, char v2);
-    virtual void removeVertex(char v);
-    virtual void removeVertex_(char v);
-    virtual void removeEdge(char v1, char v2);
-    virtual void removeEdge_(char v1, char v2);
-    virtual void removeEdgeUndirected(char v1, char v2);
-    virtual void removeEdgeDirected(char v1, char v2);
-    virtual int indegree(char v);
-    virtual int outdegree(char v);
-    virtual int degree(char v);
+    AdjacencyList(bool isDirected);
+    virtual void addVertex(int v);
+    virtual void addEdge(int v1, int v2, int value);
+    virtual void addEdge_(int v1, int v2, int value);
+    virtual void addEdgeUndirected(int v1, int v2, int value);
+    virtual void addEdgeDirected(int v1, int v2, int value);
+    virtual void removeVertex(int v);
+    virtual void removeVertex_(int v);
+    virtual void removeEdge(int v1, int v2);
+    virtual void removeEdge_(int v1, int v2);
+    virtual void removeEdgeUndirected(int v1, int v2);
+    virtual void removeEdgeDirected(int v1, int v2);
+    virtual int indegree(int v);
+    virtual int outdegree(int v);
+    virtual int degree(int v);
     virtual bool isEmpty();
     virtual bool isDirected();
-    virtual bool isNeighbour(char v1, char v2);
-    virtual void neighbours(char v);
+    virtual bool isNeighbour(int v1, int v2);
+    virtual void neighbours(int v);
     virtual int numVertices();
-    virtual int numEdges(char v);
+    virtual int numEdges(int v);
 
-    VertexList* searchVertex(char v);
-    EdgeList* searchEdge(char v1, char v2);
-    void traverseEdge(char v);
-    std::string traverse_Edge(char v);
-    // std::ostream& traverse_Edge(char v, std::ostream& out);
+    VertexList* searchVertex(int v);
+    EdgeList* searchEdge(int v1, int v2);
+    void traverseEdge(int v);
+    std::string traverse_Edge(int v);
+    // std::ostream& traverse_Edge(int v, std::ostream& out);
     void traverse();
 };
 

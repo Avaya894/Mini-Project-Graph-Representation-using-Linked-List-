@@ -1,39 +1,46 @@
 #include "Ad_List.h"
-
-AdjacencyList::AdjacencyList(char vertex, bool isDirected)
+#include <string>
+AdjacencyList::AdjacencyList(bool isDirected=true)
 {
-    adlist = new VertexList(vertex);
+    adlist = nullptr;
     head = adlist;
     isDirectedGraph = isDirected;
 }
 
-void AdjacencyList::addVertex(char v)
+void AdjacencyList::addVertex(int v)
 {
     VertexList *newnode = new VertexList(v);
     VertexList *temp = head;
-    if (head->down == NULL)
+    if(head == nullptr)
     {
-        head->down = newnode;
-    } 
-    else
+        head = new VertexList(v);
+    }
+    else 
     {
-        while(temp->down != NULL)
-        {   
-            temp=temp->down;
+        if (head->down == NULL)
+        {
+            head->down = newnode;
+        } 
+        else
+        {
+            while(temp->down != NULL)
+            {   
+                temp=temp->down;
+            }
+            temp->down = newnode;
         }
-        temp->down = newnode;
     }
 }
 
-void AdjacencyList::addEdge(char v1, char v2)
+void AdjacencyList::addEdge(int v1, int v2, int value)
 {
     if(isDirectedGraph)
-        addEdgeDirected(v1, v2);
+        addEdgeDirected(v1, v2, value);
     else    
-        addEdgeUndirected(v1, v2);
+        addEdgeUndirected(v1, v2, value);
 }
 
-void AdjacencyList::addEdge_(char v1, char v2)
+void AdjacencyList::addEdge_(int v1, int v2, int value)
 {
     VertexList* temp = head;
     while(temp!= NULL)
@@ -46,7 +53,7 @@ void AdjacencyList::addEdge_(char v1, char v2)
     {
         if(temp->right == NULL)
         {
-            EdgeList *newnode = new EdgeList(v2);
+            EdgeList *newnode = new EdgeList(v2, value);
             temp->right = newnode;
         }
         else 
@@ -56,7 +63,7 @@ void AdjacencyList::addEdge_(char v1, char v2)
             {
                 etemp=etemp->next;
             }
-            EdgeList *newnode = new EdgeList(v2);
+            EdgeList *newnode = new EdgeList(v2, value);
             etemp->next = newnode;
         }
     } else {
@@ -64,18 +71,18 @@ void AdjacencyList::addEdge_(char v1, char v2)
     }
 }
 
-void AdjacencyList::addEdgeUndirected(char v1, char v2)
+void AdjacencyList::addEdgeUndirected(int v1, int v2, int value)
 {
-    addEdge_(v1, v2);
-    addEdge_(v2, v1);
+    addEdge_(v1, v2, value);
+    addEdge_(v2, v1, value);
 }
 
-void AdjacencyList::addEdgeDirected(char v1, char v2)
+void AdjacencyList::addEdgeDirected(int v1, int v2, int value)
 {
-    addEdge_(v1, v2);
+    addEdge_(v1, v2, value);
 }
 
-void AdjacencyList::removeVertex(char v)
+void AdjacencyList::removeVertex(int v)
 {
     VertexList* temp = head;
     while(temp!=nullptr)
@@ -91,7 +98,7 @@ void AdjacencyList::removeVertex(char v)
 }
 
 
-void AdjacencyList::removeVertex_(char v)
+void AdjacencyList::removeVertex_(int v)
 {
     VertexList *temp, *prevnode;
     temp = head;
@@ -121,7 +128,7 @@ void AdjacencyList::removeVertex_(char v)
 }
 
 
-void AdjacencyList::removeEdge_(char v1, char v2)
+void AdjacencyList::removeEdge_(int v1, int v2)
 {
     VertexList *temp;
     temp = searchVertex(v1);
@@ -162,18 +169,18 @@ void AdjacencyList::removeEdge_(char v1, char v2)
 }
 
 
-void AdjacencyList::removeEdgeUndirected(char v1, char v2)
+void AdjacencyList::removeEdgeUndirected(int v1, int v2)
 {
     removeEdge_(v1, v2);
     removeEdge_(v2, v1);
 }
 
-void AdjacencyList::removeEdgeDirected(char v1, char v2)
+void AdjacencyList::removeEdgeDirected(int v1, int v2)
 {
     removeEdge_(v1, v2);
 }
 
-void AdjacencyList::removeEdge(char v1, char v2)
+void AdjacencyList::removeEdge(int v1, int v2)
 {
     if(isDirectedGraph)
         removeEdgeDirected(v1, v2);
@@ -181,7 +188,7 @@ void AdjacencyList::removeEdge(char v1, char v2)
         removeEdgeUndirected(v1, v2);
 }
 
-int AdjacencyList::indegree(char v)
+int AdjacencyList::indegree(int v)
 {
     VertexList *temp = head;
     EdgeList *tmp;
@@ -204,7 +211,7 @@ int AdjacencyList::indegree(char v)
     return indegree;
 }
 
-int AdjacencyList::outdegree(char v) 
+int AdjacencyList::outdegree(int v) 
 {
     VertexList *temp = head;
     EdgeList *tmp;
@@ -228,12 +235,12 @@ int AdjacencyList::outdegree(char v)
     return outdegree;
 }
 
-int AdjacencyList::degree(char v)
+int AdjacencyList::degree(int v)
 {
     return indegree(v) + outdegree(v);
 }
 
-VertexList* AdjacencyList::searchVertex(char v)
+VertexList* AdjacencyList::searchVertex(int v)
 {
     VertexList* temp = head;
     while(temp!= NULL)
@@ -245,7 +252,7 @@ VertexList* AdjacencyList::searchVertex(char v)
     return NULL;
 }
 
-EdgeList* AdjacencyList::searchEdge(char v1, char v2)
+EdgeList* AdjacencyList::searchEdge(int v1, int v2)
 {
     EdgeList *tmp = searchVertex(v1)->right;
     if(tmp == nullptr)
@@ -263,12 +270,12 @@ EdgeList* AdjacencyList::searchEdge(char v1, char v2)
 }
 
 
-void AdjacencyList::traverseEdge(char v)
+void AdjacencyList::traverseEdge(int v)
 {
     EdgeList* epoint = searchVertex(v)->right;
     while(epoint != NULL)
     {
-        std::cout << epoint->key << " -- ";
+        std::cout << epoint->key << ", " << epoint->value << " -- ";
         epoint=epoint->next;
     }
 }
@@ -277,7 +284,7 @@ void AdjacencyList::traverse()
 {
     VertexList *temp;
     temp = head;
-    std::cout << "head -> ";
+    // std::cout << "head -> ";
     while(temp != NULL)
     {
         std::cout << temp->key << traverse_Edge(temp->key) << "\n";
@@ -285,13 +292,13 @@ void AdjacencyList::traverse()
     }
 }
 
-std::string AdjacencyList::traverse_Edge(char v)
+std::string AdjacencyList::traverse_Edge(int v)
 {
     EdgeList* epoint = searchVertex(v)->right;
     std::string astring = " :: <";
     while(epoint != NULL)
     {
-        astring = astring + " -- " + epoint->key ;
+        astring = astring + " -- " + std::to_string(epoint->key) + ", " + std::to_string(epoint->value) ;
         epoint=epoint->next;
     }
     return astring;
@@ -308,7 +315,7 @@ bool AdjacencyList::isDirected()
     return isDirectedGraph;
 }
 
-bool AdjacencyList::isNeighbour(char v1, char v2)
+bool AdjacencyList::isNeighbour(int v1, int v2)
 {
     if(searchEdge(v1, v2) == nullptr)
         return false;
@@ -316,7 +323,7 @@ bool AdjacencyList::isNeighbour(char v1, char v2)
         return true;
 }
 
-void AdjacencyList::neighbours(char v)
+void AdjacencyList::neighbours(int v)
 {
     traverseEdge(v);
 }
@@ -333,7 +340,7 @@ int AdjacencyList::numVertices()
     return n_vertices;
 }
 
-int AdjacencyList::numEdges(char v)
+int AdjacencyList::numEdges(int v)
 {
     EdgeList *tmp = searchVertex(v)->right;
     int n_edges = 0;

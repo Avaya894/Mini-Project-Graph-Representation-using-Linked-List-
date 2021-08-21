@@ -4,21 +4,22 @@
 class EdgeList
 {
 public:
-    char key;
+    int key; //column
+    int value;
     EdgeList *next;
 
-    EdgeList(char v):key(v), next(nullptr) { }
+    EdgeList(int v, int value):key(v), value(value), next(nullptr) { }
 };
 
 
 class VertexList
 {
 public:
-    char key;
+    int key; //row
     VertexList *down;
     EdgeList *right;
 
-    VertexList(char vertex) : key(vertex), down(nullptr), right(nullptr) { }
+    VertexList(int vertex) : key(vertex), down(nullptr), right(nullptr) { }
 };
 
 #endif
