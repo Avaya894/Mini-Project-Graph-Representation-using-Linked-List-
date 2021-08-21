@@ -1,7 +1,3 @@
-//Avaya Bajracharya
-//Roll no: 09
-//Computer Engineering
-
 #ifndef NODE
 #define NODE
 

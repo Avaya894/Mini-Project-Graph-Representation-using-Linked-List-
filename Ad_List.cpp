@@ -1,7 +1,3 @@
-//Avaya Bajracharya
-//Roll no: 09
-//Computer Engineering
-
 #include "Ad_List.h"
 
 AdjacencyList::AdjacencyList(char vertex, bool isDirected)

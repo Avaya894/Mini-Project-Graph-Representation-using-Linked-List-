@@ -1,16 +1,10 @@
-//Avaya Bajracharya
-//Roll no: 09
-//Computer Engineering
-
-//Implement a data structure for representing sparse matrices using linked lists.
-
 #include "Ad_List.h"
 
 int main()
 {
     //Undirected Graph
-    std::cout << "Undirected Graph \n";
-    AdjacencyList a('a', false);
+    std::cout << "Directed Graph" <<  "\n";
+    AdjacencyList a('a', true);
     
     a.addVertex('b');
     a.addVertex('c');
@@ -21,21 +15,24 @@ int main()
     a.addEdge('a', 'b');
     a.addEdge('a', 'c');
     a.addEdge('a', 'd');
+    a.addEdge('b', 'f');
+    a.addEdge('d', 'e');
 
     a.traverse();
     std::cout << "\n";
 
-    std::cout << "Are 'a' and 'f' neighbours? " << a.isNeighbour('a', 'f');
-    std::cout << std::endl;
-    std::cout << "Number of vertices in the graph: " << a.numVertices() << "\n";
-    std::cout << "Number of edges of vertex 'a' in the graph: " << a.numEdges('a') << "\n";
-
+    std::cout << "Are 'a' and 'f' neighbour? " << a.isNeighbour('a', 'f') << "\n";
+    std::cout << "Number of vertices of Graph: " << a.numVertices() << "\n";
+    std::cout << "Number of edges of vertex 'a' : " << a.numEdges('a') << "\n";
 
     //Removing Vertex 'a'
-    std::cout << "\n" << "Removing Vertex 'a'" << "\n";
+    std::cout << "\n";
+    std::cout << "Removing Vertex 'a'" << "\n";
     a.removeVertex('a');
-    a.traverse();
-
-
     
+    std::cout << "\n";
+    
+// std::cout << a.isNeighbour('b', 'a') << "\n";
+    // a.removeEdge('a', 'b');
+    a.traverse();
 }

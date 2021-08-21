@@ -1,8 +1,4 @@
-//Graph Represenation using Adjacency List
-//Avaya Bajracharya
-//Roll no: 09
-//Computer Engineering
-
+//Graph Represenation using Adjacency Matrix
 #ifndef G_INTERFACE
 #define G_INTERFACE
 
